@@ -20,6 +20,7 @@ import Table from "../components/ui/Table";
 import { v4 as uuid } from "uuid";
 import { useNavigate } from "react-router-dom";
 import Confirm from "../components/ui/Confirm";
+import StatusBadges from "../components/ui/StatusBadges";
 
 export default function ProjectDetails() {
   const [activeControl, setActiveControl] = useState(null);
@@ -137,6 +138,7 @@ export default function ProjectDetails() {
     {
       header: "Status",
       accessor: "status",
+      cell : (row) => <StatusBadges status={row.status}/>
     },
     {
       header: "Actions",
@@ -181,7 +183,6 @@ export default function ProjectDetails() {
       subtitle: "Pending tasks",
       icon: ListTodo,
       color: "bg-blue-500",
-      trend: "default",
     },
     {
       title: "In Progress",
@@ -192,7 +193,6 @@ export default function ProjectDetails() {
       subtitle: "Currently working",
       icon: Loader,
       color: "bg-yellow-500",
-      trend: "default",
     },
     {
       title: "In Review",
@@ -203,17 +203,15 @@ export default function ProjectDetails() {
       subtitle: "Waiting approval",
       icon: Eye,
       color: "bg-purple-500",
-      trend: "default",
     },
     {
       title: "Done",
       value: selectedProject
-        ? selectedProject.tasks.filter((task) => task.status === "done").length
+        ? selectedProject.tasks.filter((task) => task.status === "Done").length
         : 0,
       subtitle: "Completed tasks",
       icon: CheckCircle,
       color: "bg-green-500",
-      trend: "default",
     },
   ];
 
@@ -242,7 +240,7 @@ export default function ProjectDetails() {
         { value: "todo", label: "ToDo" },
         { value: "In-progress", label: "In Progress" },
         { value: "In-review", label: "In Review" },
-        { value: "done", label: "Done" },
+        { value: "Done", label: "Done" },
       ],
       onToggle: () => {
         setActiveControl(activeControl === "filter" ? null : "filter");

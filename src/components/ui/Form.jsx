@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 export default function Form({
   fields,
@@ -7,8 +7,16 @@ export default function Form({
   onSubmit,
   isOpen,
   mode,
-  error
+  error,
 }) {
+  const focusRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen && focusRef.current) {
+      focusRef.current.focus();
+    }
+  }, [isOpen]);
+
   return (
     <form
       onSubmit={onSubmit}
@@ -19,7 +27,7 @@ export default function Form({
       <div className="grid md:grid-cols-2 gap-4">
         {fields
           .filter((field) => field.mode === mode || field.mode === "both")
-          .map((field) => (
+          .map((field, idx) => (
             <div key={field.name}>
               <label className="text-sm text-white font-medium">
                 {field.label}
@@ -27,6 +35,7 @@ export default function Form({
 
               {field.type === "select" ? (
                 <select
+                  ref={idx === 0 ? focusRef : null}
                   name={field.name}
                   value={formData[field.name]}
                   onChange={onChange}
@@ -41,6 +50,7 @@ export default function Form({
                 </select>
               ) : (
                 <input
+                  ref={idx === 0 ? focusRef : null}
                   type={field.type}
                   name={field.name}
                   value={formData[field.name]}

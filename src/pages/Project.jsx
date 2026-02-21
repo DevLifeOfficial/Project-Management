@@ -19,6 +19,7 @@ import Table from "../components/ui/Table";
 import Confirm from "../components/ui/Confirm";
 import { useNavigate } from "react-router-dom";
 import FilterComponent from "../components/ui/FilterComponent";
+import StatusBadges from "../components/ui/StatusBadges";
 
 export default function Project() {
   const {
@@ -115,28 +116,29 @@ export default function Project() {
       title: "Total Projects",
       value: filteredProjects.length,
       subtitle: "Increase from last month",
-      trend: "increase",
       icon: BriefcaseBusiness,
+      color: "bg-blue-500",
     },
     {
       title: "Ongoing Projects",
       value: filteredProjects.filter((p) => p.status === "ongoing").length,
       subtitle: "Currently active",
       icon: FolderGit2,
+      color: "bg-yellow-500",
     },
     {
       title: "Completed Projects",
       value: filteredProjects.filter((p) => p.status === "completed").length,
       subtitle: "Successfully delivered",
-      trend: "increase",
       icon: CheckCircle2,
+      color: "bg-green-500",
     },
     {
       title: "Overdue Projects",
       value: filteredProjects.filter((p) => p.status === "overdue").length,
       subtitle: "Needs attention",
-      trend: "decrease",
       icon: AlertCircle,
+      color: "bg-red-500",
     },
   ];
 
@@ -173,6 +175,7 @@ export default function Project() {
     {
       header: "Status",
       accessor: "status",
+      cell: (row) => <StatusBadges status={row.status} />,
     },
     {
       header: "Actions",
@@ -312,7 +315,7 @@ export default function Project() {
   ];
 
   return (
-   <div className="w-full max-w-7xl mx-auto h-full py-6 sm:py-8 md:py-10 px-3 sm:px-5 md:px-6">
+    <div className="w-full max-w-7xl mx-auto h-full py-6 sm:py-8 md:py-10 px-3 sm:px-5 md:px-6">
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-6">
         {statsConfig.map((item, index) => (
@@ -321,18 +324,15 @@ export default function Project() {
       </div>
 
       {/* Filters */}
-        <FilterComponent
-          controls={filterOptions}
-          activeControl={activeControl}
-        />
+      <FilterComponent controls={filterOptions} activeControl={activeControl} />
 
       {/* Table */}
-        <Table
-          columns={columns}
-          onRowClick={(id) => navigate(`/project/${id}`)}
-          data={filteredProjects}
-          error={null}
-        />
+      <Table
+        columns={columns}
+        onRowClick={(id) => navigate(`/project/${id}`)}
+        data={filteredProjects}
+        error={null}
+      />
 
       <Modal
         isOpen={isFormOpen}

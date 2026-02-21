@@ -39,6 +39,10 @@ function Table({ columns, data = [], onRowClick, error }) {
         <table className="w-full text-sm">
           <thead className="bg-gray-50 border-b">
             <tr>
+              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                S.No
+              </th>
+
               {columns.map((col, index) => (
                 <th
                   key={index}
@@ -61,22 +65,29 @@ function Table({ columns, data = [], onRowClick, error }) {
                 </td>
               </tr>
             ) : (
-              paginatedData.map((row) => (
-                <tr
-                  key={row.id}
-                  onClick={() => onRowClick && onRowClick(row.id)}
-                  className="hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
-                >
-                  {columns.map((col, colIndex) => (
-                    <td
-                      key={colIndex}
-                      className="px-6 py-4 text-gray-700 whitespace-nowrap"
-                    >
-                      {col.cell ? col.cell(row) : row[col.accessor]}
+              paginatedData.map((row, rowIndex) => {
+                const serialNumber =
+                  (currentPage - 1) * itemsPerPage + rowIndex + 1;
+                return (
+                  <tr
+                    key={row.id}
+                    onClick={() => onRowClick && onRowClick(row.id)}
+                    className="hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
+                  >
+                    <td className="px-6 py-4 text-gray-500 font-medium whitespace-nowrap">
+                      {serialNumber}
                     </td>
-                  ))}
-                </tr>
-              ))
+                    {columns.map((col, colIndex) => (
+                      <td
+                        key={colIndex}
+                        className="px-6 py-4 text-gray-700 font-medium whitespace-nowrap"
+                      >
+                        {col.cell ? col.cell(row) : row[col.accessor]}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

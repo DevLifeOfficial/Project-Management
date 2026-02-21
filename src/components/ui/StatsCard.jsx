@@ -10,13 +10,6 @@ export default function StatsCard({
   className = "",
   color,
 }) {
-  const trendStyles = {
-    increase: "text-green-500",
-    decrease: "text-red-500",
-    neutral: "text-yellow-400",
-    default: "text-white",
-  };
-
   return (
     <div
       className={`
@@ -41,7 +34,6 @@ export default function StatsCard({
 
       {/* Content */}
       <div className="flex flex-col justify-between h-full">
-        
         {/* Title */}
         <p className="text-sm sm:text-base md:text-lg text-white font-medium">
           {title}
@@ -54,9 +46,7 @@ export default function StatsCard({
 
         {/* Subtitle */}
         {subtitle && (
-          <p className={`text-xs sm:text-sm mt-2 ${trendStyles[trend]}`}>
-            {subtitle}
-          </p>
+          <p className={`text-xs sm:text-sm mt-2 text-white`}>{subtitle}</p>
         )}
       </div>
     </div>

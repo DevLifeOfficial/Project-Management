@@ -2,6 +2,7 @@ import { useEffect } from "react";
 
 export default function Modal({ isOpen, onClose, children, size }) {
   useEffect(() => {
+    
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
     };

@@ -13,7 +13,7 @@ export default function FilterComponent({ controls, activeControl }) {
                 {control.showIcon && (
                   <button
                     onClick={control.onToggle}
-                    className="p-2 rounded-md hover:bg-gray-200 transition"
+                    className="p-2 rounded-md text-white  hover:text-black hover:bg-gray-200 transition"
                   >
                     {Icon && <Icon size={18} />}
                   </button>
@@ -37,7 +37,7 @@ export default function FilterComponent({ controls, activeControl }) {
                 {control.showIcon && (
                   <button
                     onClick={control.onToggle}
-                    className="p-2 rounded-md hover:bg-gray-200 transition"
+                    className="p-2 text-white hover:text-black rounded-md hover:bg-gray-200 transition"
                   >
                     {Icon && <Icon size={18} />}
                   </button>

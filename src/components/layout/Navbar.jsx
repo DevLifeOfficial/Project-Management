@@ -20,7 +20,7 @@ export default function Navbar({ onToggleSidebar }) {
           </button>
 
           {/* Greeting */}
-          <div className="flex flex-col">
+          <div className="flex flex-col ml-2 sm:ml-10">
             <span className="text-sm text-gray-500 hidden sm:block">
               Welcome back
             </span>
@@ -32,11 +32,11 @@ export default function Navbar({ onToggleSidebar }) {
 
         <div className="flex items-center gap-3 sm:gap-4">
           {/* Today Task Progress (Hidden on very small screens) */}
-          <div className="hidden sm:flex items-center gap-2 bg-gray-100 px-3 py-1.5 rounded-full">
-            <span className="text-xs text-gray-600">
+          <div className="hidden sm:flex items-center gap-5 px-3 py-1.5">
+            <span className="text-sm text-black font-medium">
               Today: 4/7 tasks
             </span>
-            <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div className="w-20 md:w-30 lg:w-60 h-5 bg-gray-200 rounded-full overflow-hidden">
               <div className="w-1/2 h-full bg-blue-500"></div>
             </div>
           </div>
