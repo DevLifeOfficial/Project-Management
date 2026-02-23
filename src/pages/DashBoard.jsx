@@ -10,16 +10,16 @@ import DonutChart from "../components/ui/DonutChart";
 export default function DashBoard() {
   const { project } = useProject();
 
-const {
-  totalProjects,
-  totalTasks,
-  doneTasks,
-  overdueTasks,
-  statusCounts,
-  recentTasks,
-  projectSparkline,
-  taskSparkline,
-} = useMemo(() => {
+  const {
+    totalProjects,
+    totalTasks,
+    doneTasks,
+    overdueTasks,
+    statusCounts,
+    recentTasks,
+    projectSparkline,
+    taskSparkline,
+  } = useMemo(() => {
     const now = new Date();
 
     let totalProjects = project?.length || 0;
@@ -38,6 +38,7 @@ const {
 
     (project || []).forEach((proj) => {
       (proj.tasks || []).forEach((task) => {
+        
         totalTasks += 1;
 
         if (task.status === "done" || task.status === "Done") {
@@ -131,22 +132,20 @@ const {
     },
   ];
 
-  const donutData = Object.entries(statusCounts).map(
-  ([status, value]) => ({
+  const donutData = Object.entries(statusCounts).map(([status, value]) => ({
     name: status,
     value,
-  })
-);
+  }));
 
   return (
     <div className="w-full max-w-7xl mx-auto h-full py-6 sm:py-8 md:py-10 px-0.5 sm:px-5 md:px-6 space-y-4">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">
+          <h1 className="text-2xl sm:text-3xl font-bold text-black">
             Project Overview
           </h1>
-          <p className="text-sm text-gray-100 font-medium mt-1">
+          <p className="text-sm text-gray-800 font-medium mt-1">
             Track all projects, tasks, and progress at a glance.
           </p>
         </div>
@@ -193,24 +192,24 @@ const {
             </h2>
             <span className="text-xs text-gray-400">Across all projects</span>
           </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              {projectData.map((item, index) => (
-                <KpiAreaCard
-                  key={index}
-                  title={item.title}
-                  value={item.value}
-                  percent={item.percent}
-                  percentColor={item.percentColor}
-                  data={item.chartData}
-                  stroke={item.stroke}
-                  gradientId={item.gradientId}
-                  bg={item.bg}
-                />
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {projectData.map((item, index) => (
+              <KpiAreaCard
+                key={index}
+                title={item.title}
+                value={item.value}
+                percent={item.percent}
+                percentColor={item.percentColor}
+                data={item.chartData}
+                stroke={item.stroke}
+                gradientId={item.gradientId}
+                bg={item.bg}
+              />
+            ))}
+          </div>
         </div>
 
-              <DonutChart data={donutData} />
+        <DonutChart data={donutData} />
       </div>
 
       {/* Recent tasks table */}
